@@ -9,4 +9,13 @@ class Newsletter extends Model
 {
     /** @use HasFactory<\Database\Factories\NewsletterFactory> */
     use HasFactory;
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array<int, string>
+     */
+    protected $fillable = [
+        'email',
+    ];
 }

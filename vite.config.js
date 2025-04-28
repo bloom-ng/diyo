@@ -19,4 +19,10 @@ export default defineConfig({
             ],
         }),
     ],
+    resolve: {
+        alias: {
+            "/images": "/public/images",
+            "/fonts": "/resources/fonts",
+        },
+    },
 });
