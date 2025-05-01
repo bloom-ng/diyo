@@ -90,13 +90,16 @@
                                 </div>
                                 <div
                                     class="border-[0.25px] border-[#2B2B2B] flex flex-col w-full p-6 text-[#2B2B2B] font-[markPro]">
-                                    <p class="text-[32px] font-normal">Maximum Passengers</p>
-                                    <p class="text-[48px] font-bold">{{ $fleet->maximum_passenger }}</p>
+                                    <p class="text-[22px] lg:text-[28px] 2xl:text-[32px] font-normal">Maximum Passengers</p>
+                                    <p class="text-3xl lg:text-[36px] xl:text-[40px] 2xl:text-[48px] font-bold">
+                                        {{ $fleet->maximum_passenger }}</p>
                                 </div>
                                 <div
                                     class="border-[0.5px] border-[#2B2B2B] flex flex-col w-full p-6 rounded-b-3xl text-[#2B2B2B] font-[markPro]">
-                                    <p class="text-[32px] font-normal">Miles Travelling Distance</p>
-                                    <p class="text-[48px] font-bold">{{ number_format($fleet->miles) }}</p>
+                                    <p class="text-[22px] lg:text-[28px] 2xl:text-[32px] font-normal">Miles Travelling
+                                        Distance</p>
+                                    <p class="text-3xl lg:text-[36px] xl:text-[40px] 2xl:text-[48px] font-bold">
+                                        {{ number_format($fleet->miles) }}</p>
                                 </div>
                             </div>
                         </div>
@@ -122,49 +125,6 @@
                 @endif
             </div>
         </div>
-
-        <script>
-            let currentSlide = 0;
-            const slides = document.querySelectorAll('.carousel-item');
-            const container = document.querySelector('.carousel-container');
-            const prevButton = document.getElementById('prevButton');
-            const nextButton = document.getElementById('nextButton');
-
-            function updateButtons() {
-                prevButton.classList.toggle('bg-[#039FC380]', currentSlide === 0);
-                prevButton.classList.toggle('opacity-50', currentSlide === 0);
-                prevButton.classList.toggle('cursor-not-allowed', currentSlide === 0);
-
-                if (nextButton) {
-                    nextButton.classList.toggle('bg-[#039FC380]', currentSlide === slides.length - 1);
-                    nextButton.classList.toggle('opacity-50', currentSlide === slides.length - 1);
-                    nextButton.classList.toggle('cursor-not-allowed', currentSlide === slides.length - 1);
-                }
-            }
-
-            function updateSlide() {
-                const offset = currentSlide * -100;
-                container.style.transform = `translateX(${offset}%)`;
-                updateButtons();
-            }
-
-            function prevSlide() {
-                if (currentSlide > 0) {
-                    currentSlide--;
-                    updateSlide();
-                }
-            }
-
-            function nextSlide() {
-                if (currentSlide < slides.length - 1) {
-                    currentSlide++;
-                    updateSlide();
-                }
-            }
-
-            // Initialize
-            updateButtons();
-        </script>
     </section>
 
     <section class="py-[60px]" id="blog">
@@ -198,4 +158,47 @@
             </div>
         @endif
     </section>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.carousel-item');
+        const container = document.querySelector('.carousel-container');
+        const prevButton = document.getElementById('prevButton');
+        const nextButton = document.getElementById('nextButton');
+
+        function updateButtons() {
+            prevButton.classList.toggle('bg-[#039FC380]', currentSlide === 0);
+            prevButton.classList.toggle('opacity-50', currentSlide === 0);
+            prevButton.classList.toggle('cursor-not-allowed', currentSlide === 0);
+
+            if (nextButton) {
+                nextButton.classList.toggle('bg-[#039FC380]', currentSlide === slides.length - 1);
+                nextButton.classList.toggle('opacity-50', currentSlide === slides.length - 1);
+                nextButton.classList.toggle('cursor-not-allowed', currentSlide === slides.length - 1);
+            }
+        }
+
+        function updateSlide() {
+            const offset = currentSlide * -100;
+            container.style.transform = `translateX(${offset}%)`;
+            updateButtons();
+        }
+
+        function prevSlide() {
+            if (currentSlide > 0) {
+                currentSlide--;
+                updateSlide();
+            }
+        }
+
+        function nextSlide() {
+            if (currentSlide < slides.length - 1) {
+                currentSlide++;
+                updateSlide();
+            }
+        }
+
+        // Initialize
+        updateButtons();
+    </script>
 @endsection
