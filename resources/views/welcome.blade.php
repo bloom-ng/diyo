@@ -2,7 +2,8 @@
 
 @section('content')
     <section id="hero" class="w-full">
-        <div class="w-full bg-[url(/images/hero.png)] bg-cover bg-center h-[80vh] rounded-xl flex items-end justify-between">
+        <div
+            class="w-full bg-[url(/images/hero.png)] bg-cover bg-center h-[50vh] lg:h-[80vh] rounded-xl flex items-end justify-between">
 
             <h2
                 class="font-[migate] text-white text-4xl lg:text-5xl xl:text-6xl 2xl:text-8xl align-text-bottom ml-[20px] mb-[20px] lg:ml-[40px] lg:mb-[40px]">

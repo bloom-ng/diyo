@@ -21,6 +21,16 @@ Route::middleware('guest')->group(function () {
     Route::post('subscribe', [NewsletterController::class, 'subscribe']);
 });
 
+Route::get('/services', function () {
+    return view('service');
+});
+
+Route::get('/contact-us', function () {
+    return view('contact');
+});
+
+Route::post('/contact-us', [ContactController::class, 'store'])->name('contact.submit');
+
 // Booking Routes
 Route::middleware(['auth'])->group(function () {
 
