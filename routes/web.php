@@ -29,6 +29,9 @@ Route::get('/contact-us', function () {
     return view('contact');
 });
 
+Route::get('/blog', [BlogController::class, 'publicBlog']);
+Route::get('/blog/{id}', [BlogController::class, 'blogView']);
+
 Route::post('/contact-us', [ContactController::class, 'store'])->name('contact.submit');
 
 // Booking Routes
