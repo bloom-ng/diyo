@@ -94,4 +94,27 @@ class BlogController extends Controller
 
         return redirect()->route('blogs.index')->with('success', 'Blog post deleted successfully.');
     }
+
+    public function publicBlog()
+    {
+        $blogs = Blog::where('is_published', true)
+            ->latest()
+            ->paginate(10);
+
+        return view('blogs', compact('blogs'));
+    }
+
+    public function blogView(Request $request, $id)
+    {
+        $blog = Blog::findOrFail($id);
+
+        // Get 3 related blogs excluding the current one
+        $relatedBlogs = Blog::where('is_published', true)
+            ->where('id', '!=', $id)
+            ->latest()
+            ->take(3)
+            ->get();
+
+        return view('blog-view', compact('blog', 'relatedBlogs'));
+    }
 }

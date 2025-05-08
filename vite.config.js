@@ -23,6 +23,7 @@ export default defineConfig({
         alias: {
             "/images": "/public/images",
             "/fonts": "/resources/fonts",
+            "/storage": "/public/storage",
         },
     },
 });
