@@ -143,8 +143,11 @@
                     @csrf
                     <input type="email" name="email" id="email" placeholder="Email Address"
                         class="py-[27.5px] text-[#2B2B2B] border-[0.5px] border-[#2B2B2B] rounded-l-full w-[60%] lg:w-[30%] bg-white px-4">
+                    <input type="hidden" name="recaptcha_token" id="newsletter_recaptcha_token">
                     <button
-                        class="bg-gradient-to-r from-[#039FC3] to-[#2B2B2B] text-white uppercase text-center text-base md:text-xl px-[16px] 2xl:px-[62.5px] py-[26.5px] rounded-r-full">Subscribe</button>
+                        class="g-recaptcha bg-gradient-to-r from-[#039FC3] to-[#2B2B2B] text-white uppercase text-center text-base md:text-xl px-[16px] 2xl:px-[62.5px] py-[26.5px] rounded-r-full"
+                        data-sitekey="{{ config('services.recaptcha.site_key') }}" data-callback='onNewsletterSubmit'
+                        data-action='subscribe' type="submit">Subscribe</button>
                 </form>
             </div>
         </div>
@@ -217,6 +220,18 @@
     <!-- Font Awesome -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js"
         integrity="sha256-KzZiKy0DWYsnwMF+X1DvQngQ2/FxF7MF3Ff72XcpuPs=" crossorigin="anonymous"></script>
+    <script src="https://www.google.com/recaptcha/api.js"></script>
+    <script>
+        function onSubmit(token) {
+            document.getElementById("recaptcha_token").value = token;
+            document.querySelector("form").submit();
+        }
+
+        function onNewsletterSubmit(token) {
+            document.getElementById("newsletter_recaptcha_token").value = token;
+            document.querySelector("#newsletter form").submit();
+        }
+    </script>
 </body>
 
 </html>

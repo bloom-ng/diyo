@@ -6,6 +6,7 @@ use App\Models\Newsletter;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Http;
 
 class NewsletterController extends Controller
 {
@@ -26,11 +27,24 @@ class NewsletterController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'email' => 'required|email|unique:newsletters,email',
+            'recaptcha_token' => 'required|string',
         ]);
 
         if ($validator->fails()) {
             return redirect()->back()
                 ->withErrors($validator)
+                ->withInput();
+        }
+
+        // Verify reCAPTCHA
+        $response = Http::asForm()->post('https://www.google.com/recaptcha/api/siteverify', [
+            'secret' => config('services.recaptcha.secret_key'),
+            'response' => $request->recaptcha_token,
+        ]);
+
+        if (!$response->json('success')) {
+            return redirect()->back()
+                ->with('error', 'Invalid reCAPTCHA. Please try again.')
                 ->withInput();
         }
 
