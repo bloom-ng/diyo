@@ -149,4 +149,43 @@ class FleetController extends Controller
         return redirect()->route('fleet.index')
             ->with('success', 'Fleet deleted successfully.');
     }
+
+    public function publicFleets()
+    {
+        $categories = [
+            'light' => 'Light Private Jets',
+            'mid' => 'Mid-Size Private Jets',
+            'super' => 'Super Mid-Size Private Jets',
+            'heavy' => 'Heavy Private Jets',
+            'long_range' => 'Long Range Private Jets',
+            'commercial' => 'Commercial Jets',
+            'turboprop' => 'Turboprop Aircraft'
+        ];
+
+        $fleetsByCategory = [];
+        foreach ($categories as $category => $title) {
+            $fleetsByCategory[$category] = [
+                'title' => $title,
+                'description' => $this->getCategoryDescription($category),
+                'fleets' => Fleet::where('category', $category)->get()
+            ];
+        }
+
+        return view('fleets', compact('fleetsByCategory'));
+    }
+
+    private function getCategoryDescription($category)
+    {
+        $descriptions = [
+            'light' => 'Minimum of 1-8 Passengers',
+            'mid' => 'Minimum of 1-8 Passengers',
+            'super' => 'Minimum of 1-12 Passengers',
+            'heavy' => 'Up to 20 Passengers',
+            'long_range' => 'Minimum of 12-19 Passengers',
+            'commercial' => 'Minimum of 20-50 Passengers',
+            'turboprop' => 'Minimum of 4-9 Passengers'
+        ];
+
+        return $descriptions[$category] ?? '';
+    }
 }
