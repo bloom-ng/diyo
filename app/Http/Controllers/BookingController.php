@@ -129,4 +129,9 @@ class BookingController extends Controller
         return redirect()->route('bookings.index')
             ->with('success', 'Booking deleted successfully.');
     }
+
+    public function bookFlight()
+    {
+        return view('booking.book');
+    }
 }

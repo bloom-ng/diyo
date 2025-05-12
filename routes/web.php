@@ -34,6 +34,10 @@ Route::get('/blog/{id}', [BlogController::class, 'blogView']);
 
 Route::post('/contact-us', [ContactController::class, 'store'])->name('contact.submit');
 
+Route::get('/fleets', [FleetController::class, 'publicFleets']);
+
+Route::get('/book-flight', [BookingController::class, 'bookFlight']);
+
 // Booking Routes
 Route::middleware(['auth'])->group(function () {
 
