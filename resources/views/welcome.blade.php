@@ -113,17 +113,17 @@
                     class="w-12 h-12 rounded-full flex items-center justify-center bg-[#039FC3]">
                     <i class="fas fa-arrow-left text-white"></i>
                 </button>
-                @if ($showFleetButton)
+                {{-- @if ($showFleetButton)
                     <a href="{{ route('fleet.index') }}"
                         class="px-6 py-3 rounded-full bg-[#039FC3] text-white font-[markPro] hover:bg-[#038AAB] transition-colors">
                         Show Fleet
                     </a>
-                @else
-                    <button onclick="nextSlide()" id="nextButton"
-                        class="w-12 h-12 rounded-full flex items-center justify-center bg-[#039FC3]">
-                        <i class="fas fa-arrow-right text-white"></i>
-                    </button>
-                @endif
+                @else --}}
+                <button onclick="nextSlide()" id="nextButton"
+                    class="w-12 h-12 rounded-full flex items-center justify-center bg-[#039FC3]">
+                    <i class="fas fa-arrow-right text-white"></i>
+                </button>
+                {{-- @endif --}}
             </div>
         </div>
     </section>
@@ -167,12 +167,33 @@
         const prevButton = document.getElementById('prevButton');
         const nextButton = document.getElementById('nextButton');
 
+        // function updateButtons() {
+        //     prevButton.classList.toggle('bg-[#039FC380]', currentSlide === 0);
+        //     prevButton.classList.toggle('opacity-50', currentSlide === 0);
+        //     prevButton.classList.toggle('cursor-not-allowed', currentSlide === 0);
+
+        //     if (nextButton) {
+        //         nextButton.classList.toggle('bg-[#039FC380]', currentSlide === slides.length - 1);
+        //         nextButton.classList.toggle('opacity-50', currentSlide === slides.length - 1);
+        //         nextButton.classList.toggle('cursor-not-allowed', currentSlide === slides.length - 1);
+        //     }
+        // }
+
         function updateButtons() {
             prevButton.classList.toggle('bg-[#039FC380]', currentSlide === 0);
             prevButton.classList.toggle('opacity-50', currentSlide === 0);
             prevButton.classList.toggle('cursor-not-allowed', currentSlide === 0);
 
-            if (nextButton) {
+            if (nextButton && currentSlide >= 4 && slides.length > 5) {
+                // Hide next button and show "Show Fleet" button
+                nextButton.style.display = 'none';
+                const showFleetButton = document.createElement('a');
+                showFleetButton.href = "/fleets";
+                showFleetButton.className =
+                    "px-6 py-3 rounded-full bg-[#039FC3] text-white font-[markPro] hover:bg-[#038AAB] transition-colors";
+                showFleetButton.textContent = "Show Fleet";
+                nextButton.parentNode.replaceChild(showFleetButton, nextButton);
+            } else if (nextButton) {
                 nextButton.classList.toggle('bg-[#039FC380]', currentSlide === slides.length - 1);
                 nextButton.classList.toggle('opacity-50', currentSlide === slides.length - 1);
                 nextButton.classList.toggle('cursor-not-allowed', currentSlide === slides.length - 1);
